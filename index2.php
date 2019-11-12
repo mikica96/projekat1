@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	  <meta charset="utf-8">
-	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-</head>
-<body>
 	<?php 
 		if (isset($_SESSION["id"])) {
 	 ?>
@@ -18,12 +6,13 @@
 		
 		<?php echo "<br>"; ?>
 	<div class="row">
-		<?php include('process.php'); ?>
+		<?php include('process.php');
+			  include_once("konektor.php");
+		 
 		
-		<?php 
-		
-		$mysqli = new mysqli ('localhost', 'root', '', 'logreg') or die(mysqli_error($mysqli));
-		$result = $mysqli->query('SELECT * FROM `korisnici`') or die ($mysqli->error);
+		$qkor = 'SELECT * FROM `korisnici`';
+		$korisnici=$konektor->query($qkor);
+		$fkor = $korisnici->fetchAll(PDO::FETCH_OBJ);
 
 		 ?>
 		 
@@ -38,16 +27,16 @@
 		 				<th colspan="2">Action</th>
 		 			</tr>		
 		 		</thead>
-		 		<?php while( $row = $result->fetch_assoc()): ?>
+		 		<?php foreach ($fkor as $k){ ?>
 		 			<tr>
-		 				<td> <?php echo $row['name']; ?> </td>
-		 				<td> <?php echo $row['username']; ?> </td>
-		 				<td> <?php echo $row['password']; ?> </td>
-		 				<td> <?php echo $row['password']; ?> </td>
-		 				<td><a class="btn btn-success" href="index.php?opcija=index2&edit=<?php  echo $row['id']; ?>"> edit <span class="fas fa-user-edit"></span> </a></td>
-		 				<td><a class="btn btn-danger"href="index.php?opcija=index2&delete=<?php echo $row['id']; ?>"> delete <span class="fas fa-trash"></span> </a></td>
+		 				<td> <a href="index.php?opcija=profil&pid=<?php echo $k->id; ?>"> <?php echo $k->name; ?> </a> </td>
+		 				<td> <?php echo $k->username; ?> </td>
+		 				<td> <?php echo $k->password; ?> </td>
+		 				<td> <?php echo $k->password; ?> </td>
+		 				<td><a class="btn btn-success" href="index.php?opcija=index2&edit=<?php  echo $k->id; ?>"> edit <span class="fas fa-user-edit"></span> </a></td>
+		 				<td><a class="btn btn-danger"href="index.php?opcija=index2&delete=<?php echo $k->id; ?>"> delete <span class="fas fa-trash"></span> </a></td>
 		 			</tr>
-		 		<?php endwhile; ?>
+		 		<?php } ?>
 		 	</table>
 		</div>
 	 	
@@ -93,5 +82,3 @@
 <?php
 	}
 ?>
-</body>
-</html>

@@ -21,9 +21,10 @@
 		
 	?>
 	<div class="row bg-dark" >
-		<ul class="nav nav-tabs" style="margin-left: 33%;">
+		<ul class="nav nav-tabs" style="margin-left: 25%;">
 			<li class="nav-item"><a href="index.php" class="btn btn-primary btn-lg"> POČETNA <span class="fas fa-home"></span> </a> </li>
 			<li class="nav-item"><a href="index.php?opcija=index2" class="btn btn-primary btn-lg"> KORISNICI <span class="fas fa-users"></span></a></li>
+			<li class="nav-item"><a href="index.php?opcija=profil" class="btn btn-primary btn-lg"> PROFIL <span class="fas fa-user"></span></a></li>
 		 	<li class="nav-item"><a href="index.php?opcija=logout" class="btn btn-danger btn-lg"> ODJAVA <span class="fas fa-power-off"></span></a></li>
 
 		</ul>
